@@ -1,19 +1,20 @@
 
 var path = require('path')
 const express = require('express')
+const fetch = require("node-fetch");
 var bodyParser = require('body-parser')
 var cors = require('cors')
+var bodyParser = require('body-parser')
+var FormData = require('form-data')
+require('dotenv').config()
 
-
-console.log(process.env.API_KEY);
 const app = express()
 app.use(cors())
-// to use json
-app.use(bodyParser.json())
-// to use url encoded values
-app.use(bodyParser.urlencoded({
+
+app.use(express.json());
+app.use(express.urlencoded({
   extended: true
-}))
+}));
 
 app.use(express.static('dist'))
 
@@ -21,8 +22,31 @@ app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
 })
 
-app.get('/test', function (req, res) {
-    // res.json(mockAPIResponse);
+app.post('/sentiment-analysis', function (req, res) {
+
+    const formdata = new FormData();
+    formdata.append("key", process.env.API_KEY);
+    formdata.append("url", req.body.urlToAnalyze);
+    formdata.append("lang", "en");  
+
+    const requestOptions = {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
+        .then((result) => result.json())
+        .then((result) => res.send(result))
+        .catch(error => console.log('error', error));
+
+    // const sendResultsWhenReady = async () => {
+    //     const data = await response;
+    //     console.log(data);
+    //     res.send(data.json());
+    // }
+
+    // sendResultsWhenReady();
 })
 
 // designates what port the app will listen to for incoming requests

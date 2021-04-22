@@ -1,37 +1,25 @@
 
 function handleSubmit(event) {
     event.preventDefault()
-    document.getElementById('results').innerHTML = "Analyzing the paragraph...";
+    document.getElementById('results').innerHTML = "Analyzing the content's sentiment...";
 
-    let textToAnalyze = document.getElementById('textToAnalyze').value
-    
-    const formdata = new FormData();
-    formdata.append("key", process.env.API_KEY);
-    formdata.append("txt", textToAnalyze);
-    formdata.append("lang", "en");  
+    let urlToAnalyze = document.getElementById('urlToAnalyze').value
 
     const requestOptions = {
         method: 'POST',
-        body: formdata,
-        redirect: 'follow'
+        body: JSON.stringify({urlToAnalyze}),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        // redirect: 'follow'
     };
 
-    const response = fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
-    .then(response => ({
-        status: response.status, 
-        body: response.json()
-    }))
-    .then(({ status, body }) => {
-        return body;
+    fetch('http://localhost:8081/sentiment-analysis', requestOptions)
+    .then(res => {
+        return res.json();
+    }).then((data) => {
+        document.getElementById('results').innerHTML = `The content's sentiment is (${formatScoreTag(data.score_tag)})`;
     })
-    .catch(error => console.log('error', error));
-
-    const displayResultsWhenReady = async () => {
-        const data = await response;
-        document.getElementById('results').innerHTML = `This paragraph is <strong>${formatScoreTag(data.score_tag)}</strong>`;
-    }
-
-    displayResultsWhenReady();
 }
 
 const formatScoreTag = (scoreTag) => {

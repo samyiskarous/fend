@@ -14,8 +14,8 @@
     </header>
     <main>
         <section>
-            <form onsubmit="return Client.handleSubmit(event)">
-                <textarea rows="10" id="textToAnalyze"></textarea>
+            <form onsubmit="return Client.handleSubmit(event)" enctype="multipart/form-data" method="post">
+                <input type="text" id="urlToAnalyze">
 
                 <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">                
             </form>

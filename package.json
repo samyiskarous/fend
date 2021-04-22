@@ -29,7 +29,8 @@
     "node-fetch": "^2.6.1",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "webpack": "^4.35.3",
-    "webpack-cli": "^3.3.5"
+    "webpack-cli": "^3.3.5",
+    "webpack-merge": "^5.7.3"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",

@@ -6,10 +6,12 @@ import './styles/header.scss'
 
 import {handleSubmit} from './js/formHandler'
 import {checkForName} from './js/nameChecker'
+import {validateURL} from './js/formValidation'
 
 alert("I EXIST")
 
 export {
     handleSubmit,
-    checkForName
+    checkForName,
+    validateURL
 }

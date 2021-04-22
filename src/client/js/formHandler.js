@@ -1,11 +1,17 @@
 
 function handleSubmit(event) {
     event.preventDefault()
+
+    let urlToAnalyze = document.getElementById('urlToAnalyze').value
+
+    if(Client.validateURL(urlToAnalyze) === false){
+        alert('Invalid URL')
+        return false;
+    }
     document.getElementById('results').innerHTML = "Analyzing the content's sentiment...";
     document.getElementById('analyzeBtn').value = "Analyzing...";
     document.getElementById('analyzeBtn').disabled = true;
 
-    let urlToAnalyze = document.getElementById('urlToAnalyze').value
 
     const requestOptions = {
         method: 'POST',

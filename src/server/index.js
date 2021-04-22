@@ -40,13 +40,6 @@ app.post('/sentiment-analysis', function (req, res) {
         .then((result) => res.send(result))
         .catch(error => console.log('error', error));
 
-    // const sendResultsWhenReady = async () => {
-    //     const data = await response;
-    //     console.log(data);
-    //     res.send(data.json());
-    // }
-
-    // sendResultsWhenReady();
 })
 
 // designates what port the app will listen to for incoming requests

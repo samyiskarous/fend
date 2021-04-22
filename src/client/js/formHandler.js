@@ -2,6 +2,8 @@
 function handleSubmit(event) {
     event.preventDefault()
     document.getElementById('results').innerHTML = "Analyzing the content's sentiment...";
+    document.getElementById('analyzeBtn').value = "Analyzing...";
+    document.getElementById('analyzeBtn').disabled = true;
 
     let urlToAnalyze = document.getElementById('urlToAnalyze').value
 
@@ -19,6 +21,9 @@ function handleSubmit(event) {
         return res.json();
     }).then((data) => {
         document.getElementById('results').innerHTML = `The content's sentiment is (${formatScoreTag(data.score_tag)})`;
+
+        document.getElementById('analyzeBtn').value = "Analyze Sentiment";
+        document.getElementById('analyzeBtn').disabled = false;
     })
 }
 

@@ -15,9 +15,9 @@
     <main>
         <section>
             <form onsubmit="return Client.handleSubmit(event)" enctype="multipart/form-data" method="post">
-                <input type="text" id="urlToAnalyze">
+                <input type="text" id="urlToAnalyze" placeholder="Place the URL for sentiment Analysis">
 
-                <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">                
+                <input type="submit" name="" value="Analyze Sentiment" id="analyzeBtn" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">                
             </form>
         </section>
         <section>

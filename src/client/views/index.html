@@ -14,14 +14,15 @@
     </header>
     <main>
         <section>
+            <h2>Sentiment Analysis for Articles</h2>
             <form onsubmit="return Client.handleSubmit(event)" enctype="multipart/form-data" method="post">
-                <input type="text" id="urlToAnalyze" placeholder="Place the URL for sentiment Analysis">
+                <input type="url" id="urlToAnalyze" placeholder="Place the URL for sentiment Analysis">
 
-                <input type="submit" name="" value="Analyze Sentiment" id="analyzeBtn" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">                
+                <input type="submit" value="Analyze Sentiment" id="analyzeBtn" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">                
             </form>
         </section>
         <section>
-            <strong>Results: </strong>
+            <h5>Results: </h5>
             <div id="results"></div>
         </section>
     </main>

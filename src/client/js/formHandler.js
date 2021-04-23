@@ -8,6 +8,7 @@ function handleSubmit(event) {
         alert('Invalid URL')
         return false;
     }
+    
     document.getElementById('results').innerHTML = "Analyzing the content's sentiment...";
     document.getElementById('analyzeBtn').value = "Analyzing...";
     document.getElementById('analyzeBtn').disabled = true;

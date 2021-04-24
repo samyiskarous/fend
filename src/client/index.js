@@ -5,11 +5,9 @@ import './styles/footer.scss'
 import './styles/header.scss'
 
 import {handleSubmit} from './js/formHandler'
-import {checkForName} from './js/nameChecker'
-import {validateURL} from './js/formValidation'
+import {validateURL} from './js/formValidationFunctions'
 
 export {
     handleSubmit,
-    checkForName,
     validateURL
 }

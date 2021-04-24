@@ -1,5 +1,6 @@
+const fetch = require('node-fetch');
 
-function handleSubmit(event) {
+async function handleSubmit(event) {
     event.preventDefault()
 
     let urlToAnalyze = document.getElementById('urlToAnalyze').value
@@ -8,11 +9,10 @@ function handleSubmit(event) {
         alert('Invalid URL')
         return false;
     }
-    
+
     document.getElementById('results').innerHTML = "Analyzing the content's sentiment...";
     document.getElementById('analyzeBtn').value = "Analyzing...";
     document.getElementById('analyzeBtn').disabled = true;
-
 
     const requestOptions = {
         method: 'POST',
@@ -20,18 +20,31 @@ function handleSubmit(event) {
         headers: {
             "Content-Type": "application/json"
         },
-        // redirect: 'follow'
     };
 
-    fetch('http://localhost:8081/sentiment-analysis', requestOptions)
+    const analysisData = await analyzeSentimentWithAPI(requestOptions);
+
+    updateDOMWithResults(analysisData.score_tag);  
+}
+
+const analyzeSentimentWithAPI = async (requestOptions) => {
+    let analysisData = {}; 
+
+    analysisData = await fetch('http://localhost:8081/sentiment-analysis', requestOptions)
     .then(res => {
         return res.json();
     }).then((data) => {
-        document.getElementById('results').innerHTML = `The content's sentiment is (${formatScoreTag(data.score_tag)})`;
-
-        document.getElementById('analyzeBtn').value = "Analyze Sentiment";
-        document.getElementById('analyzeBtn').disabled = false;
+        return data;
     })
+
+    return analysisData;
+}
+
+const updateDOMWithResults = (score_tag) => {
+    document.getElementById('results').innerHTML = `The content's sentiment is (${formatScoreTag(score_tag)})`;
+
+    document.getElementById('analyzeBtn').value = "Analyze Sentiment";
+    document.getElementById('analyzeBtn').disabled = false;
 }
 
 const formatScoreTag = (scoreTag) => {
@@ -63,4 +76,8 @@ const formatScoreTag = (scoreTag) => {
     return formattedScoreTag;
 }
 
-export { handleSubmit }
+export { 
+    handleSubmit, 
+    formatScoreTag,
+    analyzeSentimentWithAPI
+}
